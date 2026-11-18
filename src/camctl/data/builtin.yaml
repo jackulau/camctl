@@ -1,0 +1,385 @@
+# Built-in presets. `settings` are applied over PTP (canonical keys from settings.py, or raw
+# gphoto2 widget names). `manual` lists items the camera does not expose remotely — the
+# apply report prints them as an on-camera checklist. Menu-only keys (log_shooting, log_gamut) are
+# added to that checklist automatically — don't repeat them under `manual`.
+#
+# User presets: ~/.config/camctl/presets/*.yaml (same schema; same name overrides a built-in).
+
+photo:
+  description: "Default stills — portraits/events. RAW+JPEG, M + Auto ISO, AF-C, 1/250, f/2.8."
+  switch: Photo
+  settings:
+    gamma_display_assist: "Off"        # else a Log preset's S-Log3→709 view LUT tints the monitor
+    exposure_program: M
+    image_quality: RAW+JPEG
+    jpegquality: X.Fine
+    shutter: 1/250
+    aperture: 2.8
+    iso: auto
+    white_balance: auto
+    metering: multi
+    focus_mode: AF-C
+    drive: continuous_mid
+    steadyshot: "On"
+    subject_recognition: "On"
+    recognition_target: Human
+    eye_select: Auto
+    iso_auto_min: 100
+    iso_auto_max: 6400
+    picture_profile: "Off"
+  manual:
+    - "Mode dial → M, Photo/Movie/S&Q switch → Photo"
+    - "One-time: MENU → Setup → Operation Customize → Different Set for Still/Mv → tick all 8 (Aperture, Shutter Speed, ISO, Exposure Comp., Metering, White Balance, Picture Profile, Focus Mode) — otherwise photo and movie share exposure/WB"
+    - "RAW File Type → Lossless Compressed (L)"
+    - "Focus Area → Wide, or Tracking: Spot M for single subjects"
+    - "Anti-flicker Shoot → On under indoor LED/fluorescent lights"
+
+photo-action:
+  description: "Moving people / dancing. 1/500, f/2.8, Auto ISO, AF-C, Continuous Hi."
+  switch: Photo
+  settings:
+    gamma_display_assist: "Off"        # else a Log preset's S-Log3→709 view LUT tints the monitor
+    exposure_program: M
+    image_quality: RAW+JPEG
+    shutter: 1/500
+    aperture: 2.8
+    iso: auto
+    white_balance: auto
+    focus_mode: AF-C
+    subject_recognition: "On"
+    recognition_target: Human
+    eye_select: Auto
+    iso_auto_min: 100
+    iso_auto_max: 6400
+    drive: continuous_hi
+  manual:
+    - "Mode dial → M, switch → Photo"
+    - "Subject Recognition → Human/Eye; Focus Area → Tracking: Wide or Zone"
+    - "Go 1/1000 for fast action (sports, running kids)"
+
+photo-group:
+  description: "Group photos. f/5.6 so every face is sharp, 1/250, Auto ISO."
+  switch: Photo
+  settings:
+    gamma_display_assist: "Off"        # else a Log preset's S-Log3→709 view LUT tints the monitor
+    exposure_program: M
+    image_quality: RAW+JPEG
+    shutter: 1/250
+    aperture: 5.6
+    iso: auto
+    white_balance: auto
+    focus_mode: AF-C
+    subject_recognition: "On"
+    recognition_target: Human
+    eye_select: Auto
+    iso_auto_min: 100
+    iso_auto_max: 6400
+    drive: continuous_mid
+  manual:
+    - "Mode dial → M, switch → Photo"
+    - "Focus Area → Wide; Subject Recognition → Human"
+
+cinematic-24:
+  description: "Best for color grading. 4K 24p, 1/50, 10-bit 4:2:2, S-Log3 / S-Gamut3.Cine, 5600K manual WB."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 24p
+    movie_setting: 100M 4:2:2 10bit
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+    imagestabilization: "On"
+  manual:
+    - "Mode dial → M, Photo/Movie/S&Q switch → Movie"
+    - "One-time: MENU → Setup → Operation Customize → Different Set for Still/Mv → tick all 8 (Aperture, Shutter Speed, ISO, Exposure Comp., Metering, White Balance, Picture Profile, Focus Mode) — otherwise photo and movie share exposure/WB"
+    - "Card: 100M 10-bit needs a V30+ SD card; 200M+ (XAVC S-I) needs V60/V90"
+    - "Zebra → On, level 94+ or C1 at ~70% for skin; expose S-Log3 bright but never clip highlights"
+    - "SteadyShot → Active when handheld, Standard/Off on tripod"
+    - "Audio rec level: dialogue peaks around -12 dB, never touching 0 dB"
+    - "Custom WB: if it errors, turn Log Shooting off, set custom WB, turn Log back on (Sony-documented quirk)"
+  notes:
+    - "Grade: S-Gamut3.Cine/S-Log3 → CST/Sony LUT → Rec.709 → exposure/WB → contrast → skin → look"
+    - "Change exposure with a variable ND, not shutter. Keep 1/50 for natural motion blur."
+
+slowmo-60:
+  description: "B-roll slow motion. 4K 60p, 1/125, S-Log3 / S-Gamut3.Cine. 60p on a 24p timeline = 40% speed."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 60p
+    movie_setting: 4:2:2 10bit          # A7 V XAVC S 4K 60p: 200M 4:2:2 10bit (100M 4:2:2 is 24/30p only)
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/125
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+    - "For 120p use the S&Q position and 1/250 shutter"
+
+easy-video:
+  description: "Fast turnaround, no grading. 4K 24p, 1/50, standard look, 5600K. (30p → 1/60)"
+  switch: Movie
+  settings:
+    gamma_display_assist: "Off"        # else a Log preset's S-Log3→709 view LUT tints the monitor
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 24p
+    movie_setting: 100M 4:2:2 10bit
+    log_shooting: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 2.8
+    iso: auto
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+    - "Creative Look → ST (standard) or your finished look"
+    - "10bit 4:2:2 still recommended even without Log"
+
+event-ceremony:
+  description: "Weddings / speeches / anything you can't reshoot. 4K24, 1/50, S-Log3, tripod, backup audio."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 24p
+    movie_setting: 100M 4:2:2 10bit
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+    - "Card: format it IN CAMERA before the event; check the remaining record time covers the whole ceremony"
+    - "Tripod → SteadyShot Off/Standard"
+    - "Second audio source (DJI mic recorder / lav) as backup; peaks near -12 dB"
+  notes:
+    - "Not comfortable grading Log? Use easy-video (or low-light in a dim venue) instead."
+
+outdoor-cinematic:
+  description: "Daylight cinematic. 4K24, 1/50, f/2, S-Log3, 5600K — control exposure with the variable ND."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 24p
+    movie_setting: 100M 4:2:2 10bit
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 2.0
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+    - "Rotate variable ND until zebras just stop showing on the sky/highlights"
+
+talking-head:
+  description: "Indoor talking-head/demo. 4K24, 1/50, f/2.8, manual WB, tripod, DJI mic."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 24p
+    movie_setting: 100M 4:2:2 10bit
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+    - "Set color_temp to match your lights (LED panels often 5600K, warm bulbs ~3200K)"
+    - "Sit several feet in front of the background; light it instead of opening to f/1.4"
+    - "Tripod; SteadyShot Off/Standard"
+
+low-light:
+  description: "Dark receptions / poor light. Normal profile (no Log), 1/50, f/1.8, Auto ISO."
+  switch: Movie
+  settings:
+    gamma_display_assist: "Off"        # else a Log preset's S-Log3→709 view LUT tints the monitor
+    exposure_program: Movie (M)
+    movie_format: XAVC S 4K
+    movie_frame_rate: 24p
+    movie_setting: 100M 4:2:2 10bit
+    log_shooting: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 1.8
+    iso: auto
+    white_balance: color_temp
+    color_temp: 3200
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+  notes:
+    - "Log stays off: S-Log3 reveals shadow noise in dim venues."
+
+# -- Best quality: for a CFexpress Type A card (All-Intra needs ~240-600 Mbps sustained) and a grading workflow.
+# A7 V codes verified 2026-09-28: XAVC S-I 4K = 240M 4:2:2 10bit at 24p, 600M at 60p (no 120p);
+# 120p only in XAVC HS 4K (best: 280M 4:2:2 10bit). RAW File Type has no Uncompressed on the A7 V.
+
+best-photo:
+  description: "Max stills quality for editing. RAW only, Lossless Compressed, mechanical shutter, M + Auto ISO, AF-C."
+  switch: Photo
+  settings:
+    gamma_display_assist: "Off"        # else a Log preset's S-Log3→709 view LUT tints the monitor
+    exposure_program: M
+    image_quality: RAW
+    raw_compression: Lossless Compressed
+    shuttertype: Mechanical
+    shutter: 1/250
+    aperture: 2.8
+    iso: auto
+    iso_auto_min: 100
+    iso_auto_max: 6400
+    white_balance: auto
+    metering: multi
+    focus_mode: AF-C
+    drive: continuous_mid
+    steadyshot: "On"
+    subject_recognition: "On"
+    recognition_target: Human
+    eye_select: Auto
+    picture_profile: "Off"
+  manual:
+    - "Mode dial → M, Photo/Movie/S&Q switch → Photo"
+    - "Keep ISO as low as the shot allows; expose to the right without clipping (check the histogram/zebras)"
+    - "Lens Compensation (Shading/Chromatic Aberr./Distortion) → Auto: stored as RAW metadata, your editor can undo it"
+    - "APS-C/Super 35mm → Off (full sensor)"
+    - "One-time: MENU → Setup → Operation Customize → Different Set for Still/Mv → tick all 8, so photo and movie keep their own exposure/WB/focus"
+    - "Tethered to the Mac: MENU → Network → PC Remote Function → Save Image Size → Original (default 2M sends only a preview)"
+  notes:
+    - "Lossless Compressed = bit-identical to uncompressed data, smaller files. Want quick JPEGs too: set image_quality RAW+JPEG."
+
+best-cine-24:
+  description: "Max video quality for grading. XAVC S-I 4K All-Intra 240M 4:2:2 10-bit, 24p, 1/50, S-Log3 / S-Gamut3.Cine."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S-I 4K
+    movie_frame_rate: 24p
+    movie_setting: 4:2:2 10bit
+    rec_media_movie: Slot1
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/50
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+    imagestabilization: "On"
+  manual:
+    - "Mode dial → M, Photo/Movie/S&Q switch → Movie"
+    - "One-time: MENU → Setup → Operation Customize → Different Set for Still/Mv → tick all 8, so photo and movie keep their own exposure/WB/focus"
+    - "Record to the CFexpress card: 240 Mbps is ~108 GB per hour (512 GB ≈ 4.5 h)"
+    - "APS-C/Super 35mm → Off for the full-width oversampled image"
+    - "Zebra → 94+; expose S-Log3 bright (about +1 to +1.7 over the meter) without clipping highlights"
+    - "Proxy Recording → On (HD) if your editing machine struggles; All-Intra usually edits smoothly without it"
+    - "SteadyShot → Active handheld, Off on a tripod"
+    - "Audio: peaks around -12 dB; set timecode (TC Run: Rec Run or Free Run) if syncing multicam/external audio"
+  notes:
+    - "S-Gamut3.Cine/S-Log3 → CST (Sony S-Gamut3.Cine/S-Log3 → Rec.709 or DaVinci Wide Gamut) → grade."
+    - "Control exposure with a variable ND; keep 1/50."
+
+best-slowmo-60:
+  description: "Max-quality slow motion. XAVC S-I 4K All-Intra 600M 4:2:2 10-bit, 60p, 1/125, S-Log3. 40% speed on 24p."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC S-I 4K
+    movie_frame_rate: 60p
+    movie_setting: 4:2:2 10bit
+    rec_media_movie: Slot1
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/125
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie"
+    - "600 Mbps is ~270 GB per hour (512 GB ≈ 1.8 h): CFexpress only"
+
+best-slowmo-120:
+  description: "4K 120p slow motion. XAVC HS 4K 280M 4:2:2 10-bit (the only 4K 120p codec), 1/250, S-Log3. 20% speed on 24p."
+  switch: Movie
+  settings:
+    exposure_program: Movie (M)
+    movie_format: XAVC HS 4K
+    movie_frame_rate: 120p
+    movie_setting: 4:2:2 10bit
+    rec_media_movie: Slot1
+    log_shooting: "On (Flexible ISO)"
+    log_gamut: S-Gamut3.Cine
+    monitor_lut: "On"                   # A7 V Log preview; Gamma Display Assist stays off (no double LUT)
+    gamma_display_assist: "Off"
+    subject_recognition: "On"
+    recognition_target: Human
+    shutter: 1/250
+    aperture: 2.8
+    iso: 800
+    white_balance: color_temp
+    color_temp: 5600
+    focus_mode: AF-C
+  manual:
+    - "Mode dial → M, switch → Movie (or S&Q for in-camera slow motion)"
+    - "XAVC HS is H.265 (Long GOP): heavier to edit than All-Intra; use proxies if playback stutters"
+    - "Needs about 4x the light of 1/50: shoot outdoors or light the scene"
+

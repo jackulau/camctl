@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.DS_Store
+
+# Local-only: personal camera data, dev notes, user-supplied tables and config
+backups/
+tasks/
+docs/A7V-properties.md
+src/camctl/data/sony_props.json
+sony_props.json
+organize.yaml
